@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Field Nation - Code Challenge</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div id ="square"></div>
+
+        <script>
+            function Square( squareElement, squareSide ){              
+                // top_to_bottom and left_to_right are the directions of the square
+                this.top_to_bottom = true;
+                this.left_to_right = true;
+                
+                // verticalPixel and horizontalPixel are the pixel positions of the square
+                this.verticalPixel = 0;
+                this.horizontalPixel = 0;
+
+                this.windowHeight = window.innerHeight;
+                this.windowWidth = window.innerWidth;
+   
+                this.setInitialPosition = function( initialVerticalPixel, initialHorizonalPixel ) {
+                    this.verticalPixel = initialVerticalPixel;
+                    this.horizontalPixel = initialHorizonalPixel;
+
+                    squareElement.style.top = this.verticalPixel + "px"; 
+                    squareElement.style.left = this.horizontalPixel + "px";
+                }
+
+                this.start = function(){
+                    setInterval(this.move.bind(this), 1000);
+                }
+
+                this.move = function() {
+                    if(this.verticalPixel >= (this.windowHeight-squareSide)){
+                        this.top_to_bottom = false;
+                    }
+                    if(this.verticalPixel <= 0){
+                        this.top_to_bottom = true;
+                    }
+
+                    if(this.horizontalPixel >= (this.windowWidth-squareSide)){
+                        this.left_to_right = false;
+                    }
+                    if(this.horizontalPixel <= 0){
+                        this.left_to_right = true;
+                    }
+
+                    // these two conditions determine the position of the square for next second
+                    this.top_to_bottom == true ? this.verticalPixel += 10 : this.verticalPixel -= 10;
+                    this.left_to_right == true ? this.horizontalPixel += 10 : this.horizontalPixel -= 10;
+
+                    // these statements set the position of the square
+                    squareElement.style.top = this.verticalPixel + "px"; 
+                    squareElement.style.left = this.horizontalPixel + "px";
+                }
+            }
+            
+
+            var squareElement = document.getElementById("square"); 
+            var squareSide = 100; // 100x100 pixel square
+            var initialVerticalPixel = 50; // initial position is 50 pixels from the top
+            var initialHorizonalPixel = 0;
+            
+            // Initialize square object
+            var square = new Square( squareElement, squareSide );
+
+            // setInitialPosition is responsible to set initial position of the square
+            square.setInitialPosition( initialVerticalPixel, initialHorizonalPixel );
+
+            // start function starts the render
+            square.start();
+
+        </script>
+
+    </body>
+</html>

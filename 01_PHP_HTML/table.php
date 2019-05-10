@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Field nation code - challenge</title>
+    <title>Field Nation - Code Challenge</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
